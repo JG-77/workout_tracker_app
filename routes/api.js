@@ -3,7 +3,10 @@ const Workout = require('../models/workout');
 
 //api route for getLastWorkout function
 router.get('/api/workouts', (req, res) => {
+  //aggregate() groups values from docs together
   Workout.aggregate([
+    //$addFields adds a new field to our object
+    // a sum of our exercises durations is added in the new field
     { $addFields: { totalDuration: { $sum: '$exercises.duration' } } },
   ])
     .then((dbWorkouts) => {
@@ -29,7 +32,7 @@ router.post('/api/workouts', ({ body }, res) => {
 // api PUT route for addExercise function
 router.put(`/api/workouts/:id`, (req, res) => {
   Workout.findOneAndUpdate(
-    {},
+    req.params.id,
     { $push: { exercises: req.body } },
     { new: true }
   )
