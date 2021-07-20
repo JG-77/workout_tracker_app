@@ -125,7 +125,7 @@ const workoutSeed = [
   },
 ];
 console.log(db);
-db.deleteMany({}) //previously db.workout
+db.deleteMany({}) //previously db.workout, but altered due to no index.js in models
   .then(() => db.collection.insertMany(workoutSeed))
   .then((data) => {
     console.log(data.result.n + ' records inserted!');
