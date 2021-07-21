@@ -31,13 +31,14 @@ router.post('/api/workouts', (req, res) => {
 
 // api PUT route for addExercise function
 router.put(`/api/workouts/:id`, ({ body, params }, res) => {
+  //finds by id and updates exercises array
   Workout.findByIdAndUpdate(
     params.id,
     { $push: { exercises: body } },
     { new: true, runValidators: true }
   )
     .then((dbWorkouts) => {
-      res.json(dbWorkouts);
+      -res.json(dbWorkouts);
     })
     .catch((err) => {
       res.status(400).json(err);
@@ -49,7 +50,9 @@ router.get('/api/workouts/range', (req, res) => {
   Workout.aggregate([
     { $addFields: { totalDuration: { $sum: '$exercises.duration' } } },
   ])
+    //sorts workouts from oldest to newest
     .sort({ _id: 1 })
+    //limit the duration by 7 for the days of the week
     .limit(7)
     .then((dbWorkouts) => {
       res.json(dbWorkouts);
