@@ -6,7 +6,7 @@
 
 [GitHub Link](https://github.com/JG-77/workout_tracker_app.git)
 
-[Heroku Deployed Workout Tracker]()
+[Heroku Deployed Workout Tracker](https://workout-tracker-jg.herokuapp.com/)
 
 ## Application Screenshots
 
